@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feb — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F7F1E8;
+    --surface: #FDFAF4;
+    --ink: #2C2620;
+    --ink-soft: #7A6F62;
+    --accent: #A85D3B;
+    --accent-soft: #E7CDAE;
+    --line: #E1D3BE;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection{ background: var(--accent-soft); color: var(--ink); }
+
+  a{ color: inherit; text-decoration: none; }
+
+  .wrap{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(247,241,232,0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 20px 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .nav .mark{
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .nav .links{
+    display:flex;
+    gap: 32px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .nav .links a:hover{ color: var(--accent); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 120px 0 100px;
+    position: relative;
+  }
+  .hero .eyebrow{
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hero .eyebrow::before{
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .hero h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(48px, 9vw, 96px);
+    line-height: 1.02;
+    margin: 0 0 28px;
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em{
+    font-style: italic;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .hero p.lede{
+    max-width: 480px;
+    font-size: 18px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* ---------- Section labels ---------- */
+  .section-head{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 24px;
+  }
+  .section-head h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 34px;
+    margin: 0;
+  }
+  .section-head .count{
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+  }
+
+  /* ---------- Work grid — "print mount" signature ---------- */
+  .work{ padding: 60px 0 100px; }
+
+  .plates{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 56px 40px;
+  }
+  .plate{
+    position: relative;
+  }
+  .plate .mount{
+    position: relative;
+    background: var(--surface);
+    padding: 14px 14px 0;
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 2px rgba(44,38,32,0.04);
+    transition: transform .45s cubic-bezier(.2,.7,.3,1), box-shadow .45s ease;
+  }
+  .plate:hover .mount{
+    transform: translateY(-6px);
+    box-shadow: 0 22px 40px -18px rgba(44,38,32,0.28);
+  }
+  .plate .frame{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--accent-soft), var(--line));
+  }
+  .plate .frame img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.96);
+  }
+  /* corner registration ticks — nods to darkroom print marks */
+  .plate .tick{
+    position:absolute;
+    width: 10px; height: 10px;
+    border: 1.5px solid var(--accent);
+    opacity: .55;
+  }
+  .tick.tl{ top:8px; left:8px; border-right:none; border-bottom:none; }
+  .tick.br{ bottom:8px; right:8px; border-left:none; border-top:none; }
+
+  .plate .caption{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 14px 2px 18px;
+    font-size: 13px;
+  }
+  .plate .caption .title{
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--ink);
+  }
+  .plate .caption .meta{
+    color: var(--ink-soft);
+    letter-spacing: 0.03em;
+  }
+
+  .plate.wide{ grid-column: span 2; }
+  .plate.wide .frame{ aspect-ratio: 16 / 8; }
+
+  /* ---------- About ---------- */
+  .about{
+    padding: 40px 0 100px;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .about .portrait{
+    aspect-ratio: 3/4;
+    background: linear-gradient(160deg, var(--accent-soft), var(--surface));
+    border: 1px solid var(--line);
+  }
+  .about h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 30px;
+    margin: 0 0 20px;
+  }
+  .about p{
+    color: var(--ink-soft);
+    font-size: 16px;
+    max-width: 52ch;
+  }
+  .about .skills{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+  }
+  .about .skills span{
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Contact ---------- */
+  .contact{
+    padding: 90px 0 70px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .contact .eyebrow{
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .contact h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(32px, 5vw, 52px);
+    margin: 0 0 36px;
+  }
+  .contact .email{
+    display:inline-block;
+    font-size: 18px;
+    padding: 16px 36px;
+    border: 1px solid var(--ink);
+    transition: background .3s ease, color .3s ease;
+  }
+  .contact .email:hover{
+    background: var(--ink);
+    color: var(--bg);
+  }
+  footer{
+    text-align:center;
+    padding: 28px 0 40px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 720px){
+    .nav .links{ gap: 18px; font-size: 13px; }
+    .hero{ padding: 80px 0 64px; }
+    .plates{ grid-template-columns: 1fr; }
+    .plate.wide{ grid-column: span 1; }
+    .about{ grid-template-columns: 1fr; }
+    .section-head{ flex-direction: column; align-items: flex-start; gap: 8px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    .plate .mount{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="mark">Feb.</div>
+    <div class="links">
+      <a href="#work">作品</a>
+      <a href="#about">关于</a>
+      <a href="#contact">联系</a>
+    </div>
+  </nav>
+</header>
+
+<section class="wrap hero">
+  <div class="eyebrow">设计 &amp; 摄影作品集</div>
+  <h1>视觉是<br><em>安静的</em>表达。</h1>
+  <p class="lede">
+    这里收录了近期的设计与摄影作品，用色彩与光影记录日常中的细节与秩序。
+  </p>
+</section>
+
+<section class="wrap work" id="work">
+  <div class="section-head">
+    <h2>精选作品</h2>
+    <div class="count">05 组作品</div>
+  </div>
+
+  <div class="plates">
+
+    <!-- 作品 1 -->
+    <div class="plate">
+      <div class="mount">
+        <div class="frame">
+          <span class="tick tl"></span><span class="tick br"></span>
+          <img src="feb1.jpg" alt="Feb1">
+        </div>
+        <div class="caption">
+          <span class="title">Feb1</span>
+          <span class="meta">2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 作品 2 -->
+    <div class="plate">
+      <div class="mount">
+        <div class="frame">
+          <span class="tick tl"></span><span class="tick br"></span>
+          <img src="feb2.jpg" alt="Feb2">
+        </div>
+        <div class="caption">
+          <span class="title">Feb2</span>
+          <span class="meta">2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 作品 3（横幅大图） -->
+    <div class="plate wide">
+      <div class="mount">
+        <div class="frame">
+          <span class="tick tl"></span><span class="tick br"></span>
+          <img src="feb3.jpg" alt="Feb3">
+        </div>
+        <div class="caption">
+          <span class="title">Feb3</span>
+          <span class="meta">2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 作品 4 -->
+    <div class="plate">
+      <div class="mount">
+        <div class="frame">
+          <span class="tick tl"></span><span class="tick br"></span>
+          <img src="feb4.jpg" alt="Feb4">
+        </div>
+        <div class="caption">
+          <span class="title">Feb4</span>
+          <span class="meta">2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 作品 5 -->
+    <div class="plate">
+      <div class="mount">
+        <div class="frame">
+          <span class="tick tl"></span><span class="tick br"></span>
+          <img src="feb5.jpg" alt="Feb5">
+        </div>
+        <div class="caption">
+          <span class="title">Feb5</span>
+          <span class="meta">2026</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="wrap about" id="about">
+  <div class="portrait">
+    <!-- 想放自拍/头像的话，把这个 div 换成 <img src="你的照片链接" style="width:100%;height:100%;object-fit:cover"> -->
+  </div>
+  <div>
+    <h2>关于我</h2>
+    <p>
+      Snap photo.
+    </p>
+  </div>
+</section>
+
+<section class="wrap contact" id="contact">
+  <div class="eyebrow">保持联系</div>
+  <h2>有想法，随时聊聊。</h2>
+  <a class="email" href="mailto:2580369.yk@gmail.com">2580369.yk@gmail.com</a>
+</section>
+
+<footer>© 2026 Feb. All rights reserved.</footer>
+
+</body>
+</html>
